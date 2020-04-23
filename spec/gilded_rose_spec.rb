@@ -8,6 +8,15 @@ describe GildedRose do
       GildedRose.new(items).update_quality()
       expect(items[0].name).to eq 'item'
     end
-  end
 
+    it 'updates the quality' do
+      items = [Item.new("Item", 5, 5)]
+      expect{ GildedRose.new(items).update_quality() }.to change{ items[0].quality }
+    end
+
+    it 'updates the sell_in' do
+      items = [Item.new("Item", 5, 5)]
+      expect{ GildedRose.new(items).update_quality() }.to change{ items[0].sell_in }
+    end
+  end
 end
