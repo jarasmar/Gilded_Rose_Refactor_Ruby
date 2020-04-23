@@ -8,10 +8,10 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if item != 'Sulfuras, Hand of Ragnaros'
-        if item == 'Aged Brie'
+      if item.name != 'Sulfuras, Hand of Ragnaros'
+        if item.name == 'Aged Brie'
           update_brie(item)
-        elsif item == 'Backstage passes to a TAFKAL80ETC concert'
+        elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
           update_backstage(item)
         else
           update_item(item)
@@ -32,9 +32,17 @@ class GildedRose
   end
 
   def update_brie(item)
-  #   - "Aged Brie": increases in Quality the older it gets
-  #   	- Quality increases by 1  before sell_in date
-  #   	- Quality increases by 2  after sell_in date
+  # Quality increases by 1  before sell_in date
+  # Quality increases by 2  after sell_in date
+  # Quality cant go over 50
+    if item.quality < 50
+      if item.sell_in > 0
+        item.quality += 1
+      else
+        item.quality += 2
+      end
+    end
+    item.sell_in -= 1
   end
 
   def update_backstage(item)
