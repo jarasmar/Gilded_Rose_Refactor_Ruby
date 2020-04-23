@@ -62,10 +62,38 @@ describe GildedRose do
     end
 
     context 'Sulfuras, Hand of Ragnaros' do
+      
       it 'quality is always 80' do
         items = [Item.new('Sulfuras, Hand of Ragnaros', -3, 80)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 80
+      end
+    end
+
+    context 'Backstage passes to a TAFKAL80ETC concert' do
+
+      it 'quality increases by 1 when sell_in > 10' do
+        items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 30)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 31
+      end
+
+      it 'quality increases by 2 when sell_in is 10 to 6' do
+        items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 10, 30)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 32
+      end
+
+      it 'quality increases by 3 when sell_in is 5 to 1' do
+        items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 5, 30)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 33
+      end
+
+      it 'quality drops to 0 after sell_in date' do
+        items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 0, 30)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 0
       end
     end
   end
