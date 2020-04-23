@@ -1,19 +1,29 @@
 # Gilded Rose Refactoring Kata
 
-
 ## Getting started
 
-How to install it (what to clone, what to run to get all dependencies)
+- Clone or Download this Repository
+- Run `bundle install` to install all the dependencies
 
 ## Usage
 
-How to run it (is it a command line tool? Do you have to load it into IRB? Is is a web application? What port needs to be used?)
-
+- Open `IRB` in your terminal
+- Type `load ./lib/gilded_rose.rb`
+- Generate an array of items
+	```
+	item_1 = Item.new('Aged Brie', 5, 10)
+	item_2 = Item.new('Item', 5, 0)
+	items = [item_1, item_2]
+	```
+- Create a new GildedRose with that array of items
+	```
+	gilded_rose = GildedRose.new(items)
+	gilded_rose.update_quality
+	```
 
 ## Running tests
 
-How to run the tests
-
+- Run `rspec` from your terminal
 
 
 ## Specifications
@@ -39,6 +49,17 @@ How to run the tests
 ## Implementation
 
 - "Conjured Items": degrade in Quality twice as fast as normal items.
+
+
+## My approach
+
+- Set up the project, rspec, simplecov and rubocop
+- Do test coverage for all the code
+- Separate the classes into two different files
+- Refactor the code
+	- Update_quality method checks the item name and updates the sell_in date.
+	- It delegates the update quality functionality into private methods according to the item name
+- Implement the new feature 'conjured items'
 
 
 ## Original Readme Content
