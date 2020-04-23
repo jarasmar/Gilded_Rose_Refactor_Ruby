@@ -46,9 +46,21 @@ class GildedRose
   end
 
   def update_backstage(item)
-    # - "Backstage passes": increases in Quality the older it gets:
-    # 	- Quality increases by 2 when there are 10 days or less
-    # 	- Quality increases by 3 when there are 5 days or less
-    # 	- Quality drops to 0 after the concert
+    # Quality increases by 2 when there are 10 days or less
+    # Quality increases by 3 when there are 5 days or less
+    # Quality drops to 0 after the concert
+    # Quality cant go over 50
+    if item.quality < 50
+      if item.sell_in > 10
+        item.quality += 1
+      elsif item.sell_in > 6
+        item.quality += 2
+      elsif item.sell_in > 0
+        item.quality += 3
+      else
+        item.quality -= item.quality
+      end
+    end
+    item.sell_in -= 1
   end
 end
