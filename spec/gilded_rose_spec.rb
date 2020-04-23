@@ -60,5 +60,13 @@ describe GildedRose do
         expect(items[0].quality).to eq 50
       end
     end
+
+    context 'Sulfuras, Hand of Ragnaros' do
+      it 'quality is always 80' do
+        items = [Item.new('Sulfuras, Hand of Ragnaros', -3, 80)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 80
+      end
+    end
   end
 end
