@@ -74,7 +74,7 @@ class GildedRose
             # if sell_in date is passed
             # and item is brie
             # and quality is < 50
-            # quality increases by 1
+            # quality increases by extra 1 (1 + 1)
             item.quality = item.quality + 1
           end
         end
@@ -94,4 +94,4 @@ class Item
   def to_s
     "#{@name}, #{@sell_in}, #{@quality}"
   end
-end 
+end

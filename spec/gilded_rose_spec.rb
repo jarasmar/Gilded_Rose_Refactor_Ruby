@@ -39,5 +39,26 @@ describe GildedRose do
         expect(items[0].quality).to eq 0
       end
     end
+
+    context 'Aged Brie' do
+
+      it 'before sell_in date quality increases by 1' do
+        items = [Item.new('Aged Brie', 5, 5)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 6
+      end
+
+      it 'after sell_in date quality increases by 2' do
+        items = [Item.new('Aged Brie', -3, 5)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 7
+      end
+
+      it 'quality cannot go over 50' do
+        items = [Item.new('Aged Brie', -3, 50)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 50
+      end
+    end
   end
 end
