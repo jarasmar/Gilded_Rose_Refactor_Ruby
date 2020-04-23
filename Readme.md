@@ -34,7 +34,7 @@
 - Once the sell by date has passed, Quality degrades twice as fast.
 
 
-#### Exceptions
+### Exceptions
 
 - "Sulfuras": never has to be sold or decreases in Quality
 - "Aged Brie": increases in Quality the older it gets
@@ -46,9 +46,11 @@
 	- Quality drops to 0 after the concert
 
 
-## Implementation
+### Implementation
 
 - "Conjured Items": degrade in Quality twice as fast as normal items.
+	- Quality decreases by 2 before sell_in date has passed
+	- Quality decreases by 4 after sell_in date has passed
 
 
 ## My approach

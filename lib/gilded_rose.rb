@@ -14,6 +14,8 @@ class GildedRose
           update_brie(item)
         elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
           update_backstage(item)
+        elsif item.name == 'Conjured'
+          update_conjured(item)
         else
           update_item(item)
         end
@@ -66,6 +68,19 @@ class GildedRose
         item.quality += 3
       else
         item.quality -= item.quality
+      end
+    end
+  end
+
+  def update_conjured(item)
+    # Quality cant go below 0
+    # Quality decreases by 2 before sell_in date
+    # Quality decreases by 4 after sell_in date
+    if item.quality > 0
+      if item.sell_in > 0
+        item.quality -= 2
+      else
+        item.quality -= 4
       end
     end
   end

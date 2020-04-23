@@ -96,5 +96,26 @@ describe GildedRose do
         expect(items[0].quality).to eq 0
       end
     end
+
+    context 'conjured items' do
+
+      it 'before sell_in date quality degrades by 2' do
+        items = [Item.new('Conjured', 2, 5)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 3
+      end
+
+      it 'after sell_in date quality degrades by 4' do
+        items = [Item.new('Conjured', -1, 5)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 1
+      end
+
+      it 'quality cant be below 0' do
+        items = [Item.new('Conjured', 3, 0)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 0
+      end
+    end
   end
 end
