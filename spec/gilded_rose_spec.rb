@@ -11,12 +11,12 @@ describe GildedRose do
 
     it 'updates the quality' do
       items = [Item.new("Item", 5, 5)]
-      expect{ GildedRose.new(items).update_quality() }.to change{ items[0].quality }
+      expect { GildedRose.new(items).update_quality() }.to(change { items[0].quality })
     end
 
     it 'updates the sell_in' do
       items = [Item.new("Item", 5, 5)]
-      expect{ GildedRose.new(items).update_quality() }.to change{ items[0].sell_in }
+      expect { GildedRose.new(items).update_quality() }.to(change { items[0].sell_in })
     end
 
     context 'common items' do
@@ -62,7 +62,7 @@ describe GildedRose do
     end
 
     context 'Sulfuras, Hand of Ragnaros' do
-      
+
       it 'quality is always 80' do
         items = [Item.new('Sulfuras, Hand of Ragnaros', -3, 80)]
         GildedRose.new(items).update_quality()
