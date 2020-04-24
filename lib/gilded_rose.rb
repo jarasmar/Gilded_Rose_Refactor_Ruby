@@ -2,6 +2,9 @@ require_relative 'item'
 
 class GildedRose
 
+  MAX_QUALITY = 50
+  MIN_QUALITY = 0
+
   def initialize(items)
     @items = items
   end
@@ -10,30 +13,52 @@ class GildedRose
     @items.each do |item|
       # Sulfuras remains always the same
       if item.name != 'Sulfuras, Hand of Ragnaros'
-        if item.name == 'Aged Brie'
+        if item_is_aged_brie(item)
           update_brie(item)
-        elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
+        elsif item_is_backstage(item)
           update_backstage(item)
-        elsif item.name == 'Conjured'
+        elsif item_is_conjured(item)
           update_conjured(item)
         else
           update_item(item)
         end
         # Sell_in date decreases 1 every day
-        item.sell_in -= 1
+        reduce_sell_in(item)
       end
     end
   end
 
   private
 
+  # checks for items name
+
+  def item_is_sulfuras(item)
+    item.name == 'Sulfuras, Hand of Ragnaros'
+  end
+
+  def item_is_aged_brie(item)
+    item.name == 'Aged Brie'
+  end
+
+  def item_is_backstage(item)
+    item.name == 'Backstage passes to a TAFKAL80ETC concert'
+  end
+
+  def item_is_conjured(item)
+    item.name == 'Conjured'
+  end
+
+  # checks for items quality
+
   def quality_positive(item)
-    item.quality > 0
+    item.quality > MIN_QUALITY
   end
 
   def quality_below_max(item)
-    item.quality < 50
+    item.quality < MAX_QUALITY
   end
+
+  # checks for items sell_in
 
   def sell_in_positive(item)
     item.sell_in > 0
@@ -46,6 +71,14 @@ class GildedRose
   def less_than_6_days_left(item)
     item.sell_in > 6
   end
+
+  # items date update
+
+  def reduce_sell_in(item)
+    item.sell_in -= 1
+  end
+
+  # items quality updates
 
   def update_item(item)
     # Quality cant go below 0
