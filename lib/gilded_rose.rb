@@ -12,19 +12,19 @@ class GildedRose
   def update_quality()
     @items.each do |item|
       # Sulfuras remains always the same
-      if item.name != 'Sulfuras, Hand of Ragnaros'
-        if item_is_aged_brie(item)
-          update_brie(item)
-        elsif item_is_backstage(item)
-          update_backstage(item)
-        elsif item_is_conjured(item)
-          update_conjured(item)
-        else
-          update_item(item)
-        end
-        # Sell_in date decreases 1 every day
-        reduce_sell_in(item)
+      return if item_is_sulfuras(item)
+
+      if item_is_aged_brie(item)
+        update_brie(item)
+      elsif item_is_backstage(item)
+        update_backstage(item)
+      elsif item_is_conjured(item)
+        update_conjured(item)
+      else
+        update_item(item)
       end
+      # Sell_in date decreases 1 every day
+      reduce_sell_in(item)
     end
   end
 
@@ -50,12 +50,12 @@ class GildedRose
 
   # checks for items quality
 
-  def quality_positive(item)
-    item.quality > MIN_QUALITY
+  def quality_is_minimum(item)
+    item.quality == MIN_QUALITY
   end
 
-  def quality_below_max(item)
-    item.quality < MAX_QUALITY
+  def quality_is_maximum(item)
+    item.quality == MAX_QUALITY
   end
 
   # checks for items sell_in
@@ -81,60 +81,60 @@ class GildedRose
   # items quality updates
 
   def update_item(item)
-    # Quality cant go below 0
+    # Quality cant go below minimum (0)
     # Quality decreases by 1 before sell_in date
     # Quality decreases by 2 after sell_in date
-    if quality_positive(item)
-      if sell_in_positive(item)
-        item.quality -= 1
-      else
-        item.quality -= 2
-      end
+    return if quality_is_minimum(item)
+
+    if sell_in_positive(item)
+      item.quality -= 1
+    else
+      item.quality -= 2
     end
   end
 
   def update_brie(item)
-    # Quality cant go over 50
+    # Quality cant go over maximum (50)
     # Quality increases by 1  before sell_in date
     # Quality increases by 2  after sell_in date
-    if quality_below_max(item)
-      if sell_in_positive(item)
-        item.quality += 1
-      else
-        item.quality += 2
-      end
+    return if quality_is_maximum(item)
+
+    if sell_in_positive(item)
+      item.quality += 1
+    else
+      item.quality += 2
     end
   end
 
   def update_backstage(item)
-    # Quality cant go over 50
+    # Quality cant go over maximum (50)
     # Quality increases by 1 when there are 10 days or more
     # Quality increases by 2 when there are 10 days or less
     # Quality increases by 3 when there are 5 days or less
     # Quality drops to 0 after the concert
-    if quality_below_max(item)
-      if more_than_10_days_left(item)
-        item.quality += 1
-      elsif less_than_6_days_left(item)
-        item.quality += 2
-      elsif sell_in_positive(item)
-        item.quality += 3
-      else
-        item.quality -= item.quality
-      end
+    return if quality_is_maximum(item)
+
+    if more_than_10_days_left(item)
+      item.quality += 1
+    elsif less_than_6_days_left(item)
+      item.quality += 2
+    elsif sell_in_positive(item)
+      item.quality += 3
+    else
+      item.quality -= item.quality
     end
   end
 
   def update_conjured(item)
-    # Quality cant go below 0
+    # Quality cant go below minimum (0)
     # Quality decreases by 2 before sell_in date
     # Quality decreases by 4 after sell_in date
-    if quality_positive(item)
-      if sell_in_positive(item)
-        item.quality -= 2
-      else
-        item.quality -= 4
-      end
+    return if quality_is_minimum(item)
+
+    if sell_in_positive(item)
+      item.quality -= 2
+    else
+      item.quality -= 4
     end
   end
 end
