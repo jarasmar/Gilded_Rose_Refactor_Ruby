@@ -14,15 +14,13 @@ class GildedRose
       # Sulfuras remains always the same
       return if item_is_sulfuras(item)
 
-      if item_is_aged_brie(item)
-        update_brie(item)
-      elsif item_is_backstage(item)
-        update_backstage(item)
-      elsif item_is_conjured(item)
-        update_conjured(item)
-      else
-        update_item(item)
-      end
+      return update_brie(item) if item_is_aged_brie(item)
+
+      return update_backstage(item) if item_is_backstage(item)
+
+      return update_conjured(item) if item_is_conjured(item)
+
+      update_item(item)
       # Sell_in date decreases 1 every day
       reduce_sell_in(item)
     end
