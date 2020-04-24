@@ -78,6 +78,14 @@ class GildedRose
 
   # items quality updates
 
+  def increase_quality(item, amount)
+    item.quality += amount
+  end
+
+  def decrease_quality(item, amount)
+    item.quality -= amount
+  end
+
   def update_item(item)
     # Quality cant go below minimum (0)
     # Quality decreases by 1 before sell_in date
@@ -85,9 +93,9 @@ class GildedRose
     return if quality_is_minimum?(item)
 
     if sell_in_positive?(item)
-      item.quality -= 1
+      decrease_quality(item, 1)
     else
-      item.quality -= 2
+      decrease_quality(item, 2)
     end
   end
 
@@ -98,9 +106,9 @@ class GildedRose
     return if quality_is_maximum?(item)
 
     if sell_in_positive?(item)
-      item.quality += 1
+      increase_quality(item, 1)
     else
-      item.quality += 2
+      increase_quality(item, 2)
     end
   end
 
@@ -113,13 +121,13 @@ class GildedRose
     return if quality_is_maximum?(item)
 
     if more_than_10_days_left?(item)
-      item.quality += 1
+      increase_quality(item, 1)
     elsif six_to_10_days_left?(item)
-      item.quality += 2
+      increase_quality(item, 2)
     elsif sell_in_positive?(item)
-      item.quality += 3
+      increase_quality(item, 3)
     else
-      item.quality -= item.quality
+      decrease_quality(item, item.quality)
     end
   end
 
@@ -130,9 +138,9 @@ class GildedRose
     return if quality_is_minimum?(item)
 
     if sell_in_positive?(item)
-      item.quality -= 2
+      decrease_quality(item, 2)
     else
-      item.quality -= 4
+      decrease_quality(item, 4)
     end
   end
 end
