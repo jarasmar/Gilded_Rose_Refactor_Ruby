@@ -28,29 +28,29 @@
 
 ## Specifications
 
-- Item SellIn value: number of days we have to sell the item.
-- Item Quality value: how valuable the item is (always between 0 and 50)
+- Item sell_in value: number of days we have to sell the item.
+- Item quality value: how valuable the item is (always between 0 and 50)
 - At the end of each day our system lowers both values for every item.
-- Once the sell by date has passed, Quality degrades twice as fast.
+- Once the sell by date has passed, 'quality' degrades twice as fast.
 
 
 ### Exceptions
 
 - "Sulfuras": never has to be sold or decreases in Quality
 - "Aged Brie": increases in Quality the older it gets
-	- Quality increases by 1  before sell_in date
-	- Quality increases by 2  after sell_in date
-- "Backstage passes": increases in Quality the older it gets:
-	- Quality increases by 2 when there are 10 days or less
-	- Quality increases by 3 when there are 5 days or less
-	- Quality drops to 0 after the concert
+	- Quality increases by 1  before sell_in date.
+	- Quality increases by 2  after sell_in date.
+- "Backstage passes": increases in Quality the older it gets
+	- Quality increases by 2 when there are 10 days or less.
+	- Quality increases by 3 when there are 5 days or less.
+	- Quality drops to 0 after the concert.
 
 
 ### Implementation
 
 - "Conjured Items": degrade in Quality twice as fast as normal items.
-	- Quality decreases by 2 before sell_in date has passed
-	- Quality decreases by 4 after sell_in date has passed
+	- Quality decreases by 2 before sell_in date has passed.
+	- Quality decreases by 4 after sell_in date has passed.
 
 
 ## My approach
